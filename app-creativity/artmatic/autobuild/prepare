@@ -1,0 +1,23 @@
+export ELECTRON_MIRROR="https://github.com/electron/electron/releases/download/"
+export ELECTRON_VER=44.9.3
+if ab_match_arch loongarch64; then
+    abinfo "Overriding Electron mirror for loongarch64 ..."
+    export ELECTRON_MIRROR="https://github.com/darkyzhou/electron-loong64/releases/download/"
+    export electron_use_remote_checksums=1
+    export ELECTRON_VER=43.7.7
+    export NODE_ARCH=loong64
+elif ab_match_arch amd64; then
+    export NODE_ARCH=x64
+elif ab_match_arch arm64; then
+    export NODE_ARCH=arm64
+fi
+
+abinfo "Installing NPM dependencies ..."
+cd "$SRCDIR"
+pnpm install
+
+abinfo "Downloading electron ..."
+wget -vv ${ELECTRON_MIRROR}v${ELECTRON_VER}/electron-v${ELECTRON_VER}-linux-${NODE_ARCH}.zip -O "${SRCDIR}"/node_modules/electron/dist.zip
+
+abinfo "Extracting electron ..."
+unzip -d "${SRCDIR}"/node_modules/electron/dist "${SRCDIR}"/node_modules/electron/dist.zip

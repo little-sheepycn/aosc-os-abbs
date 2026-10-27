@@ -1,0 +1,4 @@
+VER=0.3.0
+COMMIT_ID=8e4f2bf
+SRCS="git::commit=$COMMIT_ID::https://github.com/OxygenNine/artmatic.git"
+CHKSUMS="SKIP"

@@ -1,0 +1,29 @@
+abinfo "Building ..."
+cd "$SRCDIR"
+pnpm run build
+node desktop/build.mjs
+
+abinfo "Installing artmatic ..."
+install -dvm755 "$PKGDIR"/usr/lib/artmatic
+if ab_match_arch amd64; then
+	cp -av "$SRCDIR"/release/Artmatic-0.3.0-linux-x64/* "$PKGDIR"/usr/lib/artmatic/
+elif ab_match_arch arm64; then
+	cp -av "$SRCDIR"/release/Artmatic-0.3.0-linux-arm64/* "$PKGDIR"/usr/lib/artmatic/
+elif ab_match_arch loongarch64; then
+	cp -av "$SRCDIR"/release/Artmatic-0.3.0-linux-loong64/* "$PKGDIR"/usr/lib/artmatic/
+fi
+abinfo "Creating symbolic link ..."
+mkdir -pv "$PKGDIR"/usr/bin
+ln -sv ../lib/artmatic/Artmatic "$PKGDIR"/usr/bin/artmatic
+
+abinfo "Installing application icon ..."
+install -Dvm644 "$SRCDIR"/src/assets/brand/artmatic-main-dark.svg \
+		"$PKGDIR"/usr/share/icons/hicolor/scalable/apps/artmatic-main-dark.svg
+install -Dvm544 "$SRCDIR"/src/assets/brand/artmatic-main-light.svg \
+                "$PKGDIR"/usr/share/icons/hicolor/scalable/apps/artmatic-main-light.svg
+install -Dvm544 "$SRCDIR"/src/assets/brand/artmatic-small-light.svg \
+                "$PKGDIR"/usr/share/icons/hicolor/scalable/apps/artmatic-small-light.svg
+install -Dvm544 "$SRCDIR"/src/assets/brand/artmatic-small-dark.svg \
+                "$PKGDIR"/usr/share/icons/hicolor/scalable/apps/artmatic-small-dark.svg
+install -Dvm544 "$SRCDIR"/src/assets/brand/artmatic-main-light.svg \
+                "$PKGDIR"/usr/share/icons/hicolor/scalable/apps/artmatic.svg

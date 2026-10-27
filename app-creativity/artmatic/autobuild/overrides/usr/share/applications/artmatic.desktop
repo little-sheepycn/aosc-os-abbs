@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Artmatic
+Name[zh_CN]=艺数引擎
+Exec=/usr/bin/artmatic %U
+Terminal=false
+Type=Application
+Icon=artmatic
+StartupWMClass=Artmatic
+Comment=Video editing software for algorithmic art and glitch art
+Categories=AudioVideo;Video;AudioVideoEditing;

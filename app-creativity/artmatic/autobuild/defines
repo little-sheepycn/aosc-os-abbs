@@ -1,0 +1,9 @@
+PKGNAME=artmatic
+PKGSEC=video
+PKGDEP="gtk-3 x11-lib mesa"
+BUILDDEP="pnpm nodejs unzip"
+PKGDES="Video editing software for algorithmic art and glitch art"
+
+ABTYPE=self
+
+FAIL_ARCH="!(amd64|arm64|loongarch64)"
